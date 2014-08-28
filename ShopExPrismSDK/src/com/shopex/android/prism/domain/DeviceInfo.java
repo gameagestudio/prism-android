@@ -1,11 +1,7 @@
 
 package com.shopex.android.prism.domain;
 
-/**
- * 设备信息
- * 
- * @author bluestome
- */
+
 public class DeviceInfo extends AbstractCommonReq {
 
     /**

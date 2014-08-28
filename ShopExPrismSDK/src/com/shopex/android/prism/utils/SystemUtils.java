@@ -16,11 +16,7 @@ import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-/**
- * 系统工具类，主要是针对手机硬件条件的判断
- * 
- * @author bluestome
- */
+
 public class SystemUtils {
 
     private static final String TAG = SystemUtils.class.getSimpleName();

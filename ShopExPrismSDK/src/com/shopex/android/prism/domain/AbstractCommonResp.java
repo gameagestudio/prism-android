@@ -7,11 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-/**
- * 响应通用头抽象类
- * 
- * @author bluestome
- */
+
 public abstract class AbstractCommonResp<T> implements Serializable {
 
     /**

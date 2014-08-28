@@ -64,7 +64,11 @@ public class NetworkClient implements INetworkAPI.SECURITY {
 		WriteReq req = new WriteReq(data, contentType);
 		req.setContentType(contentType);
 		req.setData(data);
-		client.post(AConstants.REQUEST_API.SECURITY.WRITE_URL+"?client_id="+clientId+"&client_secret="+clientSecret, req,responseHandler);
+		client.post(addTail(AConstants.REQUEST_API.SECURITY.WRITE_URL, clientId, clientSecret), req,responseHandler);
 		
+	}
+	
+	private String addTail(String url,String clientId,String clientSecret){
+		return url+"?client_id="+clientId+"&client_secret="+clientSecret;
 	}
 }

@@ -6,11 +6,7 @@ import java.net.URLEncoder;
 
 import com.shopex.android.prism.common.CharsetCst;
 
-/**
- * 字符串工具类
- * 
- * @author bluestome
- */
+
 public class StringUtil {
 
     /**

@@ -10,11 +10,7 @@ import com.shopex.android.prism.common.AConstants;
 import com.shopex.android.prism.common.AConstants.STATUS_CODE;
 
 
-/**
- * 定制的响应处理Handler
- * 
- * @author bluestome
- */
+
 public class ShopExAsynchResponseHandler extends AsyncHttpResponseHandler {
 
     private static final String TAG = "AustriaAsynchResponseHandler";

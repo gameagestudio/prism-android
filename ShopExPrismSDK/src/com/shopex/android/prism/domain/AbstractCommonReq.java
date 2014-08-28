@@ -5,11 +5,7 @@ import com.loopj.android.http.RequestParams;
 
 import java.io.Serializable;
 
-/**
- * 请求通用头抽象类
- * 
- * @author bluestome
- */
+
 public abstract class AbstractCommonReq extends RequestParams implements
         Serializable {
 

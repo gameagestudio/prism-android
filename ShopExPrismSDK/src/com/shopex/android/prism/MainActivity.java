@@ -39,12 +39,15 @@ public class MainActivity extends Activity {
 		mClient = new NetworkClient(getShopExApplication());
 		
 	
-		mClient.secret("buwb2lii", "ucr72ygfutspqeuu6s36", new ShopExAsynchResponseHandler(mClient){
+		mClient.write("buwb2lii", "ucr72ygfutspqeuu6s36","buwb2lii", "ucr72ygfutspqeuu6s36", new ShopExAsynchResponseHandler(mClient){
 
 			@Override
 			public void onSuccess(int status, Header[] headers, byte[] body) {
 				// TODO Auto-generated method stub
 				super.onSuccess(status, headers, body);
+				for(Header header: headers){
+					System.out.println("header:"+header.getName()+","+header.getValue());
+				}
 				 if (null != body && body.length > 0) {
                      String json = new String(body);
                      System.out.println(json);
