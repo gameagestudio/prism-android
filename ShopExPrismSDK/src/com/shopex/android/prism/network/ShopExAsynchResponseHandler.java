@@ -3,17 +3,16 @@ package com.shopex.android.prism.network;
 
 import org.apache.http.Header;
 
-import android.content.Intent;
 
 import com.loopj.android.http.handler.response.AsyncHttpResponseHandler;
 import com.shopex.android.prism.common.AConstants;
-import com.shopex.android.prism.common.AConstants.STATUS_CODE;
+
 
 
 
 public class ShopExAsynchResponseHandler extends AsyncHttpResponseHandler {
 
-    private static final String TAG = "AustriaAsynchResponseHandler";
+    private static final String TAG = "ShopExAsynchResponseHandler";
     private NetworkClient mClient;
 
     public ShopExAsynchResponseHandler(NetworkClient mClient) {

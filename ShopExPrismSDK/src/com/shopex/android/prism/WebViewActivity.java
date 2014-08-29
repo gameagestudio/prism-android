@@ -25,6 +25,7 @@ public class WebViewActivity extends Activity {
 		setContentView(webView);
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
+		webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 		webView.setWebViewClient(new WebViewClient(){
 
 			@Override
@@ -45,6 +46,8 @@ public class WebViewActivity extends Activity {
 			}
 			
 		});
+		webView.clearCache(true);
+		
 		webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
 		data = getIntent().getStringExtra("data");
 		webView.loadUrl(data);

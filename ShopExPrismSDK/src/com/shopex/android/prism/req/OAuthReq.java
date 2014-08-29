@@ -35,12 +35,10 @@ public class OAuthReq extends AbstractCommonReq{
 	 */
 	private String ttl;
 	
-	public OAuthReq(String clientId,String redirectUri,String code,String view,String ttl){
+	public OAuthReq(String clientId,String redirectUri){
 		this.clientId = clientId;
 		this.redirectUri = redirectUri;
-		this.code = code;
-		this.view = view;
-		this.ttl = ttl;
+	
 	}
 
 	public String getClientId() {

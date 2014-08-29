@@ -16,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpProtocolParams;
 
+import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 import com.shopex.android.prism.application.PrismApplication;
@@ -34,17 +36,17 @@ import com.shopex.android.prism.utils.SystemUtils;
 public class NetworkClient implements SECURITY,WEBSOCKET {
 
 	private final Map<String, String> headerMap = new HashMap<String, String>();
-	private final PersistentCookieStore cookieStore;
+	//private final PersistentCookieStore cookieStore;
 	private AsyncHttpClient client = null;
-	private PrismApplication application;
+	
 	private PrismClient pClient = null;
 
-	public NetworkClient(PrismApplication application) {
-		this.application = application;
+	public NetworkClient(Context context) {
+		//this.application = application;
 		this.client = new AsyncHttpClient(true, AConstants.HTTP_PORT,
 				AConstants.HTTPS_PORT);
-		this.cookieStore = new PersistentCookieStore(application);
-		this.client.setCookieStore(cookieStore);
+		//this.cookieStore = new PersistentCookieStore(application);
+	//	this.client.setCookieStore(cookieStore);
 		this.client.addHeader("Accept-Language", SystemUtils.getLocales());
 		this.client.getHttpClient().getParams()
 				.setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
@@ -65,12 +67,12 @@ public class NetworkClient implements SECURITY,WEBSOCKET {
 	}
 
 	@Override
-	public void secret(String clientId, String clientSecret,
+	public void secret(String token,String clientId, String clientSecret,
 			ShopExAsynchResponseHandler responseHandler) {
 		SecurityReq req = new SecurityReq();
 		req.setClientId(clientId);
 		req.setClientSecret(clientSecret);
-		client.get(null,AConstants.REQUEST_API.SECURITY.SECURITY_URL,addHeader(""), req,
+		client.get(null,AConstants.REQUEST_API.SECURITY.SECURITY_URL,addHeader(token), req,
 				responseHandler);
 	}
 
