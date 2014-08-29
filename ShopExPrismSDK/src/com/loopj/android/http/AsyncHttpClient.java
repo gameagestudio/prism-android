@@ -677,7 +677,7 @@ public class AsyncHttpClient {
      */
     public RequestHandle get(Context context, String url, RequestParams params,
             ResponseHandlerInterface responseHandler) {
-    	System.out.println("---get req:"+url);
+   
     	System.out.println("---get req:::"+getUrlWithQueryString(isUrlEncodingEnabled, url, params));
         return sendRequest(httpClient, httpContext,
                 new HttpGet(getUrlWithQueryString(isUrlEncodingEnabled, url, params)), null,

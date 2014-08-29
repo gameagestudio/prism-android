@@ -76,10 +76,21 @@ public class AConstants {
     	public static class SECURITY{
     		public static final String SECURITY_URL = ONLINE_DOMAIN + "/api/platform/notify/status";
     		public static final String WRITE_URL = ONLINE_DOMAIN + "/api/platform/notify/write";
+    		public static final String AUTHORIZE_URL = ONLINE_DOMAIN + "/oauth/authorize";
+    		public static final String TOKEN_URL = ONLINE_DOMAIN + "/oauth/token";
+    		public static final String CHECKSESSION_URL = ONLINE_DOMAIN + "/";
+    	
     	}
 
   
-
+    	/**
+    	 * WebSocket
+    	 */
+    	public static class WEBSOCKET{
+    		
+    		public static final String NOTIFY_METHOD = "/platform/notify";
+    		public static final String NOTIFY_URL = ONLINE_DOMAIN + "/api" + NOTIFY_METHOD;
+    	}
     }
 
     /**
@@ -97,8 +108,8 @@ public class AConstants {
     }
 
     /**
-     * key键定�?     * 
-     * @author bluestome
+     * key键定 
+     * 
      */
     public static class KEY {
         // Cookie保存KEY
