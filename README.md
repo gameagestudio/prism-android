@@ -9,6 +9,7 @@ Android
 -----------------------------------------------
 
 - 提供oauth认证
+- 提供get，post请求
 
 要求
 -----------------------------------------------
@@ -57,4 +58,79 @@ PrismClient prismClient = new PrismClient(context,clientId,redirectUrl);
 				});
 ```
 
+
+提供get请求
+--------------------------------------------------
+- 创建NetWorkClient实例对象,并且将上下文Context,OAuth传入
+
+```java
+			//context 为上下文环境 OAuth 为提供OAuth认证后返回的数据，将OAuth妥善保管在本地,如果没有OAuth 请传入null
+			NetworkClient networkClient = new NetworkClient(context,oAuth);
+
+			//等到获得是在setOAuth即可
+			networkClient.setOAuth(oAuth);
+
+```
+
+- get请求 ，get有重载，可以根据不同的条件调用不同方法
+
+
+```java
+			networkClient.get(clientId, clientSecret, url,new ShopExAsynchResponseHandler(){
+
+					@Override
+					public void onSuccess(int status, Header[] headers,
+							byte[] body) {
+						// 返回正确结果
+						super.onSuccess(status, headers, body);
+						String json = new String(body);
+
+					}
+
+					@Override
+					public void onFailure(int status, Header[] headers,
+							byte[] body, Throwable e) {
+						// 返回错误信息
+						super.onFailure(status, headers, body, e);
+					}
+					
+				});
+				
+```
+
+- post请求 ，post有重载，可以根据不同的条件调用不同方法
+
+
+```java
+			/*
+			* 参数设置
+			*
+			/
+			public class TestReq extends AbstractCommonReq{
+				public TestReq(String t1,String t2){
+					add("t1",t1);
+					add("t2",t2);
+				}
+			}
+			networkClient.post(clientId, clientSecret, url,new TestReq(),new ShopExAsynchResponseHandler(){
+
+					@Override
+					public void onSuccess(int status, Header[] headers,
+							byte[] body) {
+						// 返回正确结果
+						super.onSuccess(status, headers, body);
+						String json = new String(body);
+
+					}
+
+					@Override
+					public void onFailure(int status, Header[] headers,
+							byte[] body, Throwable e) {
+						// 返回错误信息
+						super.onFailure(status, headers, body, e);
+					}
+					
+				});
+				
+```
 
