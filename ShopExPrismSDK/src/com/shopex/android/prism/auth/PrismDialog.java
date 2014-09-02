@@ -38,7 +38,6 @@ public class PrismDialog extends Dialog {
 	private static final int WEBVIEW_MARGIN = 10;
 
 	private Context context;
-	
 
 	private RelativeLayout mRootContainer;
 	private RelativeLayout mWebViewContainer;
@@ -48,7 +47,7 @@ public class PrismDialog extends Dialog {
 	private String mAuthUrl;
 	private PrismOauthListener listener;
 	private PrismOauth oauth;
-	private NetworkClient networkClient ;
+	private NetworkClient networkClient;
 	private Gson mGson = new Gson();
 	private static int style = R.style.Theme_Translucent_NoTitleBar;
 
@@ -59,7 +58,7 @@ public class PrismDialog extends Dialog {
 		this.mAuthUrl = authUrl;
 		this.listener = listener;
 		this.oauth = oauth;
-		networkClient = new NetworkClient(context,null);
+		networkClient = new NetworkClient(context, null);
 	}
 
 	@Override
@@ -102,15 +101,14 @@ public class PrismDialog extends Dialog {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
- 
+
 		initWindow();
 
 		initLoadingDlg();
-		System.out.println("--initLoading--"+mAuthUrl);
+
 		initWebView();
 
-		
-	//	initCloseButton();
+		// initCloseButton();
 	}
 
 	private void initCloseButton() {
@@ -137,7 +135,7 @@ public class PrismDialog extends Dialog {
 	}
 
 	private void initWindow() {
-		
+
 		requestWindowFeature(1);
 		getWindow().setFeatureDrawableAlpha(0, 0);
 		getWindow().setSoftInputMode(16);
@@ -178,53 +176,52 @@ public class PrismDialog extends Dialog {
 		float density = dm.density;
 		int margin = (int) (10.0F * density);
 		webviewLayout.setMargins(margin, margin, margin, margin);
-		//Drawable background = ResourceManager.getNinePatchDrawable(context, 1);
+		// Drawable background = ResourceManager.getNinePatchDrawable(context,
+		// 1);
 
-	//	this.mWebViewContainer.setBackgroundDrawable(background);
+		// this.mWebViewContainer.setBackgroundDrawable(background);
 
 		this.mWebViewContainer.addView(this.mWebView, webviewLayout);
 		this.mWebViewContainer.setGravity(Gravity.CENTER);
 
 		Drawable drawable = ResourceManager.getDrawable(context, 1);
 		int width = drawable.getIntrinsicWidth() / 2 + 1;
-		//int width = 50;
+		// int width = 50;
 		webViewContainerLayout.setMargins(width, (int) (25.0F * dm.density),
 				width, width);
 		this.mRootContainer.addView(this.mWebViewContainer,
 				webViewContainerLayout);
 	}
-	
-	  private void handleRedirectUrl(String url)
-	  {
-	    String code = url.split("code=")[1];
-	    
-	    if ((!mIsDetached)
-				&& (mLoadingDlg != null)
-				&& (!mLoadingDlg.isShowing()))
-	    	mLoadingDlg.show();
-	   networkClient.grant(new GrantTypeReq("authorization_code", code), new ShopExAsynchResponseHandler(networkClient){
 
-		@Override
-		public void onSuccess(int status, Header[] headers, byte[] body) {
-			
-			super.onSuccess(status, headers, body);
-			mLoadingDlg.dismiss();
-			OAuth oAuth = mGson.fromJson(new String(body), OAuth.class);
-			listener.onSuccess(oAuth);
-		}
+	private void handleRedirectUrl(String url) {
+		String code = url.split("code=")[1];
+		networkClient.grant(new GrantTypeReq("authorization_code", code),
+				new ShopExAsynchResponseHandler() {
 
-		@Override
-		public void onFailure(int status, Header[] headers, byte[] body,
-				Throwable e) {
-			mLoadingDlg.dismiss();
-			super.onFailure(status, headers, body, e);
-			listener.onFaliure(status, new String(body));
-		}
-		   
-	   });
-	 
-	  }
+					@Override
+					public void onSuccess(int status, Header[] headers,
+							byte[] body) {
 
+						super.onSuccess(status, headers, body);
+						mLoadingDlg.dismiss();
+						OAuth oAuth = mGson.fromJson(new String(body),
+								OAuth.class);
+						listener.onSuccess(oAuth);
+						PrismDialog.this.dismiss();
+					}
+
+					@Override
+					public void onFailure(int status, Header[] headers,
+							byte[] body, Throwable e) {
+						mLoadingDlg.dismiss();
+						super.onFailure(status, headers, body, e);
+						listener.onFaliure(status, new String(body));
+						PrismDialog.this.dismiss();
+					}
+
+				});
+
+	}
 
 	private class PrismWebViewClient extends WebViewClient {
 		private boolean isCallBacked = false;
@@ -258,36 +255,33 @@ public class PrismDialog extends Dialog {
 			}
 			PrismDialog.this.dismiss();
 		}
-		
-		
 
 		public void onPageStarted(WebView view, String url, Bitmap favicon) {
-			
+
 			System.out.println("onPageStarted URL: " + url);
 			LogUtil.d("WeiboDialog", "onPageStarted URL: " + url);
+		
+
+			super.onPageStarted(view, url, favicon);
+
+			if ((!mIsDetached) && (mLoadingDlg != null)
+					&& (!mLoadingDlg.isShowing()))
+				mLoadingDlg.show();
+			
 			if ((url.startsWith(PrismDialog.this.oauth.getAuth()
 					.getRedirectUri())) && (!this.isCallBacked)) {
 				this.isCallBacked = true;
 				PrismDialog.this.handleRedirectUrl(url);
 				view.stopLoading();
-				PrismDialog.this.dismiss();
 
 				return;
 			}
-
-			super.onPageStarted(view, url, favicon);
-
-			if ((!mIsDetached)
-					&& (mLoadingDlg != null)
-					&& (!mLoadingDlg.isShowing()))
-			mLoadingDlg.show();
 		}
 
 		public void onPageFinished(WebView view, String url) {
 			LogUtil.d("WeiboDialog", "onPageFinished URL: " + url);
 			super.onPageFinished(view, url);
-			if ((!mIsDetached)
-					&& (mLoadingDlg != null)) {
+			if ((!mIsDetached) && (mLoadingDlg != null)) {
 				mLoadingDlg.dismiss();
 			}
 

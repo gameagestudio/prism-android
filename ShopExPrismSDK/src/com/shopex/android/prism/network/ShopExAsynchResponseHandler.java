@@ -12,11 +12,12 @@ import com.shopex.android.prism.common.AConstants;
 
 public class ShopExAsynchResponseHandler extends AsyncHttpResponseHandler {
 
-    private static final String TAG = "ShopExAsynchResponseHandler";
-    private NetworkClient mClient;
+    @SuppressWarnings("unused")
+	private static final String TAG = "ShopExAsynchResponseHandler";
 
-    public ShopExAsynchResponseHandler(NetworkClient mClient) {
-        this.mClient = mClient;
+
+    public ShopExAsynchResponseHandler() {
+       
     }
 
     @Override

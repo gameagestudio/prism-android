@@ -3,35 +3,29 @@ package com.shopex.android.prism;
 import org.apache.http.Header;
 
 import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.shopex.android.prism.application.PrismApplication;
 import com.shopex.android.prism.auth.PrismOauth;
 import com.shopex.android.prism.auth.PrismOauthListener;
-import com.shopex.android.prism.common.AConstants;
 import com.shopex.android.prism.exception.PrismException;
 import com.shopex.android.prism.info.OAuth;
 import com.shopex.android.prism.network.NetworkClient;
 import com.shopex.android.prism.network.ShopExAsynchResponseHandler;
 import com.shopex.android.prism.network.parser.IResponseParser;
 import com.shopex.android.prism.network.parser.impl.JsonResponseParser;
-import com.shopex.android.prism.req.GrantTypeReq;
-import com.shopex.android.prism.req.OAuthReq;
 import com.shopex.android.prism.req.SessionCheckReq;
-import com.shopex.android.prism.resp.OAuthResp;
 import com.shopex.android.prism.utils.UIUtils;
 
 public class MainActivity extends Activity {
 
 	protected NetworkClient mClient;
 
-	private PrismApplication mApplication;
+	
 
 	private Button btnOauth;
 
@@ -42,17 +36,6 @@ public class MainActivity extends Activity {
 
 	protected IResponseParser mGson = new JsonResponseParser();
 
-	/**
-	 * 获取自有的application
-	 * 
-	 * @return
-	 */
-	protected PrismApplication getShopExApplication() {
-		if (null == mApplication) {
-			mApplication = PrismApplication.getInstance();
-		}
-		return mApplication;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +53,7 @@ public class MainActivity extends Activity {
 					return;
 				}
 				mClient = new NetworkClient(MainActivity.this,oAuth);
-				mClient.checkSession(new SessionCheckReq(oAuth),"buwb2lii", "ucr72ygfutspqeuu6s36", new ShopExAsynchResponseHandler(mClient){
+				mClient.checkSession(new SessionCheckReq(oAuth),"buwb2lii", "ucr72ygfutspqeuu6s36", new ShopExAsynchResponseHandler(){
 
 					@Override
 					public void onSuccess(int status, Header[] headers,
@@ -136,7 +119,7 @@ public class MainActivity extends Activity {
 				return;
 			}
 				mClient = new NetworkClient(MainActivity.this,oAuth);
-				mClient.secret(oAuth.getAccess_token(), "buwb2lii", "ucr72ygfutspqeuu6s36", new ShopExAsynchResponseHandler(mClient){
+				mClient.secret(oAuth.getAccess_token(), "buwb2lii", "ucr72ygfutspqeuu6s36", new ShopExAsynchResponseHandler(){
 
 					@Override
 					public void onSuccess(int status, Header[] headers,

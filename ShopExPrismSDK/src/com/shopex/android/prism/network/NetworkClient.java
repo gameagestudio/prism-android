@@ -3,16 +3,14 @@ package com.shopex.android.prism.network;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import jp.a840.websocket.exception.WebSocketException;
 
 import org.apache.http.Header;
-import org.apache.http.HeaderElement;
+
 import org.apache.http.HttpEntity;
-import org.apache.http.ParseException;
+
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
@@ -23,9 +21,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.PersistentCookieStore;
+
 import com.loopj.android.http.RequestParams;
-import com.shopex.android.prism.application.PrismApplication;
 import com.shopex.android.prism.common.AConstants;
 import com.shopex.android.prism.info.OAuth;
 import com.shopex.android.prism.network.INetworkAPI.SECURITY;
@@ -37,10 +34,15 @@ import com.shopex.android.prism.req.OAuthReq;
 import com.shopex.android.prism.req.SecurityReq;
 import com.shopex.android.prism.req.SessionCheckReq;
 import com.shopex.android.prism.req.WriteReq;
-import com.shopex.android.prism.utils.SignTools;
+
 import com.shopex.android.prism.utils.SystemUtils;
 import com.shopex.android.prism.utils.UIUtils;
 
+/**
+ * 
+ * @author JazzyYang
+ *
+ */
 public class NetworkClient implements SECURITY, WEBSOCKET {
 
 	private AsyncHttpClient client = null;
@@ -307,7 +309,7 @@ public class NetworkClient implements SECURITY, WEBSOCKET {
 	}
 
 	@SuppressLint("NewApi")
-	private <T> T[] concatAll(T[] first, T[]... rest) {
+	public <T> T[] concatAll(T[] first, T[]... rest) {
 		int totalLength = first.length;
 		for (T[] array : rest) {
 			totalLength += array.length;
