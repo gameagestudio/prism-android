@@ -700,8 +700,12 @@ public class AsyncHttpClient {
             ResponseHandlerInterface responseHandler) {
         HttpUriRequest request = new HttpGet(getUrlWithQueryString(isUrlEncodingEnabled, url,
                 params));
-        if (headers != null)
+        if (headers != null){
+        	for(Header header:headers){
+        		System.out.println("=="+header.getName()+","+header.getValue());
+        	}
             request.setHeaders(headers);
+        }
         return sendRequest(httpClient, httpContext, request, null, responseHandler,
                 context);
     }

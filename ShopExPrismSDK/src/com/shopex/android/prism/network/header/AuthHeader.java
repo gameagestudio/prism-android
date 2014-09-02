@@ -25,7 +25,7 @@ public class AuthHeader implements Header{
 
 	@Override
 	public String getValue() {
-		return token;
+		return "Bearer "+ token;
 	}
 
 }
