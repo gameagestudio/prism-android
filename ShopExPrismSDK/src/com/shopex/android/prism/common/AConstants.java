@@ -76,7 +76,7 @@ public class AConstants {
     		public static final String WRITE_URL = ONLINE_DOMAIN + "/api/platform/notify/write";
     		public static final String AUTHORIZE_URL = ONLINE_DOMAIN + "/oauth/authorize";
     		public static final String TOKEN_URL = ONLINE_DOMAIN + "/oauth/token";
-    		public static final String CHECKSESSION_URL = ONLINE_DOMAIN + "/";
+    		public static final String CHECKSESSION_URL = ONLINE_DOMAIN + "/api/platform/oauth/session_check";
     	
     	}
 

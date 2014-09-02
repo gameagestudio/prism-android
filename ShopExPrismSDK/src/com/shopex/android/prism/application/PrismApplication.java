@@ -27,7 +27,7 @@ public class PrismApplication extends Application {
 		// 优化内存分配机制,处理OOM问题
 		AustriaUtil.optimizeDalvikVM(getClassLoader());
 
-		client = new NetworkClient(this);
+		
 
 	}
 

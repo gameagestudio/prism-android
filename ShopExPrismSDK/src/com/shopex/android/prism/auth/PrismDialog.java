@@ -59,7 +59,7 @@ public class PrismDialog extends Dialog {
 		this.mAuthUrl = authUrl;
 		this.listener = listener;
 		this.oauth = oauth;
-		networkClient = new NetworkClient(context);
+		networkClient = new NetworkClient(context,null);
 	}
 
 	@Override
@@ -165,9 +165,7 @@ public class PrismDialog extends Dialog {
 		this.mWebView.requestFocus();
 		this.mWebView.setScrollBarStyle(0);
 		this.mWebView.setVisibility(View.VISIBLE);
-
 		NetWorkHelper.clearCookies(context, mAuthUrl);
-		
 		this.mWebView.loadUrl(mAuthUrl);
 
 		RelativeLayout.LayoutParams webViewContainerLayout = new RelativeLayout.LayoutParams(
@@ -200,14 +198,17 @@ public class PrismDialog extends Dialog {
 	  {
 	    String code = url.split("code=")[1];
 	    
-	  
+	    if ((!mIsDetached)
+				&& (mLoadingDlg != null)
+				&& (!mLoadingDlg.isShowing()))
+	    	mLoadingDlg.show();
 	   networkClient.grant(new GrantTypeReq("authorization_code", code), new ShopExAsynchResponseHandler(networkClient){
 
 		@Override
 		public void onSuccess(int status, Header[] headers, byte[] body) {
 			
 			super.onSuccess(status, headers, body);
-			
+			mLoadingDlg.dismiss();
 			OAuth oAuth = mGson.fromJson(new String(body), OAuth.class);
 			listener.onSuccess(oAuth);
 		}
@@ -215,7 +216,7 @@ public class PrismDialog extends Dialog {
 		@Override
 		public void onFailure(int status, Header[] headers, byte[] body,
 				Throwable e) {
-			
+			mLoadingDlg.dismiss();
 			super.onFailure(status, headers, body, e);
 			listener.onFaliure(status, new String(body));
 		}
